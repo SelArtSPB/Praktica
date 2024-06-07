@@ -34,6 +34,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.buttonGraf = new System.Windows.Forms.Button();
             this.inputData = new System.Windows.Forms.GroupBox();
+            this.rbD = new System.Windows.Forms.RadioButton();
+            this.rbA = new System.Windows.Forms.RadioButton();
             this.ansver = new System.Windows.Forms.Button();
             this.StartVznos = new System.Windows.Forms.TextBox();
             this.stavkaIpotek = new System.Windows.Forms.TextBox();
@@ -59,8 +61,6 @@
             this.tableData = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.rbA = new System.Windows.Forms.RadioButton();
-            this.rbD = new System.Windows.Forms.RadioButton();
             this.inputData.SuspendLayout();
             this.outputData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grafFinanse)).BeginInit();
@@ -99,6 +99,28 @@
             this.inputData.TabIndex = 1;
             this.inputData.TabStop = false;
             this.inputData.Text = "Входные Данные";
+            // 
+            // rbD
+            // 
+            this.rbD.AutoSize = true;
+            this.rbD.Location = new System.Drawing.Point(476, 216);
+            this.rbD.Name = "rbD";
+            this.rbD.Size = new System.Drawing.Size(185, 22);
+            this.rbD.TabIndex = 9;
+            this.rbD.TabStop = true;
+            this.rbD.Text = "Дифференцированная";
+            this.rbD.UseVisualStyleBackColor = true;
+            // 
+            // rbA
+            // 
+            this.rbA.AutoSize = true;
+            this.rbA.Location = new System.Drawing.Point(476, 178);
+            this.rbA.Name = "rbA";
+            this.rbA.Size = new System.Drawing.Size(104, 22);
+            this.rbA.TabIndex = 7;
+            this.rbA.TabStop = true;
+            this.rbA.Text = "Аннуитетая";
+            this.rbA.UseVisualStyleBackColor = true;
             // 
             // ansver
             // 
@@ -308,13 +330,13 @@
             this.grafFinanse.Enabled = false;
             legend1.Name = "Legend1";
             this.grafFinanse.Legends.Add(legend1);
-            this.grafFinanse.Location = new System.Drawing.Point(30, 150);
+            this.grafFinanse.Location = new System.Drawing.Point(30, 132);
             this.grafFinanse.Name = "grafFinanse";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.grafFinanse.Series.Add(series1);
-            this.grafFinanse.Size = new System.Drawing.Size(1230, 370);
+            this.grafFinanse.Size = new System.Drawing.Size(1236, 667);
             this.grafFinanse.TabIndex = 0;
             this.grafFinanse.Text = "chart1";
             // 
@@ -329,7 +351,7 @@
             this.tableData.Name = "tableData";
             this.tableData.ReadOnly = true;
             this.tableData.RowHeadersVisible = false;
-            this.tableData.Size = new System.Drawing.Size(1230, 371);
+            this.tableData.Size = new System.Drawing.Size(1236, 371);
             this.tableData.TabIndex = 5;
             // 
             // label10
@@ -352,28 +374,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
-            // 
-            // rbA
-            // 
-            this.rbA.AutoSize = true;
-            this.rbA.Location = new System.Drawing.Point(476, 178);
-            this.rbA.Name = "rbA";
-            this.rbA.Size = new System.Drawing.Size(104, 22);
-            this.rbA.TabIndex = 7;
-            this.rbA.TabStop = true;
-            this.rbA.Text = "Аннуитетая";
-            this.rbA.UseVisualStyleBackColor = true;
-            // 
-            // rbD
-            // 
-            this.rbD.AutoSize = true;
-            this.rbD.Location = new System.Drawing.Point(476, 216);
-            this.rbD.Name = "rbD";
-            this.rbD.Size = new System.Drawing.Size(185, 22);
-            this.rbD.TabIndex = 9;
-            this.rbD.TabStop = true;
-            this.rbD.Text = "Дифференцированная";
-            this.rbD.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

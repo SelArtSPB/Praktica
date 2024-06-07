@@ -41,15 +41,25 @@ namespace КалькуляторИпотеки
 
         private int datPars(string input) //парс с проверкой, при неправильном вводе выводить ошибку
         {
+
             int output = 0;
             if (int.TryParse(input, out output) && output >= 0) return output;
             else
             {
                 MessageBox.Show("Ошибка в вводе данных");
+
                 return 0;
             }
+
         }
 
+        private void STOP()
+        {
+            while (true)
+            {
+                break;
+            }
+        } 
         private void GrafON(object sender, EventArgs e) //включение/отключенние графа
         {
             Button button = (Button)sender;
@@ -83,10 +93,13 @@ namespace КалькуляторИпотеки
 
         private void annuitetnaa(out List<double> monthlyPayments)
         {
+            double startPercent = 0, rate = 0;
             monthlyPayments = new List<double>();
             int price = datPars(costNedv.Text);
-            double rate = datPars(stavkaIpotek.Text);
-            double startPercent = (double)datPars(StartVznos.Text) / 100;
+            if (datPars(stavkaIpotek.Text) > 100) MessageBox.Show("Больше 100 нельзя"); 
+            else rate = datPars(stavkaIpotek.Text);
+            if (datPars(StartVznos.Text) > 100) MessageBox.Show("Больше 100 нельзя");
+            else startPercent = (double)datPars(StartVznos.Text) / 100;
             dateNow.Text = DateTime.Now.ToString("D");
             int years = datPars(dataKredit.Text);
             double startPay = price * startPercent;
@@ -95,7 +108,7 @@ namespace КалькуляторИпотеки
             sumCredit.Text = summa.ToString("N2") + " \u20BD";
             int mouns = years * 12;
             double rateMounthe = rate / 12 / 100;
-            dataEnd.Text = DateTime.Now.AddMonths(mouns).ToString("D");
+            
             DateTime chetchik = DateTime.Now;
             double k = Math.Pow((1 + rateMounthe), mouns);
             double pay = summa * ((rateMounthe * k) / (k - 1));
@@ -107,20 +120,30 @@ namespace КалькуляторИпотеки
                 pereplata += payBank;
                 double payMain = pay - payBank;
                 summa -= payMain;
+                if (summa < 0)
+                {
+                    dataEnd.Text = chetchik.ToString("D");
+                    summa = 0;
+                };
                 tableData.Rows.Add(i + 1, chetchik.ToString("D"), pay.ToString("N2") + " \u20BD", payBank.ToString("N2") + " \u20BD", payMain.ToString("N2") + " \u20BD", summa.ToString("N2") + " \u20BD");
+                if (summa == 0) break;
                 chetchik = chetchik.AddMonths(1);
                 debitMain -= payBank;
                 monthlyPayments.Add(pay); // добавляем ежемесячный платеж в список
             }
+            dataEnd.Text = chetchik.ToString("D");
             overSum.Text = pereplata.ToString("N2") + " \u20BD";
         }
 
         private void differenc(out List<double> monthlyPayments)
         {
+            double rate = 0, startPercent = 0 ;
             monthlyPayments = new List<double>();
             int price = datPars(costNedv.Text);
-            double rate = datPars(stavkaIpotek.Text);
-            double startPercent = (double)datPars(StartVznos.Text) / 100;
+            if (datPars(stavkaIpotek.Text) > 100) MessageBox.Show("Больше 100 нельзя");
+            else rate = datPars(stavkaIpotek.Text);
+            if (datPars(StartVznos.Text) > 100) MessageBox.Show("Больше 100 нельзя");
+            else startPercent = (double)datPars(StartVznos.Text) / 100;
             dateNow.Text = DateTime.Now.ToString("D");
             int years = datPars(dataKredit.Text);
             double startPay = price * startPercent;
@@ -129,7 +152,6 @@ namespace КалькуляторИпотеки
             sumCredit.Text = summa.ToString("N2") + " \u20BD";
             int mouns = years * 12;
             double rateMounthe = rate / 12 / 100;
-            dataEnd.Text = DateTime.Now.AddMonths(mouns).ToString("D");
             DateTime chetchik = DateTime.Now;
             double k = Math.Pow((1 + rateMounthe), mouns);
             double pay = summa * ((rateMounthe * k) / (k - 1));
@@ -138,16 +160,22 @@ namespace КалькуляторИпотеки
 
             for (int i = 0; i <= mouns; i++)
             {
-                double debit = summa - (payMain * DateTime.DaysInMonth(chetchik.Year, chetchik.Month));
+                double debit = summa - (payMain * (DateTime.DaysInMonth(chetchik.Year, chetchik.Month) - DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)));
                 double payBank = debit * rateMounthe;
                 pereplata += payBank;
                 summa -= payMain;
                 pay = payMain + payBank;
+                if (payBank == 0 && summa == 0)
+                {
+                    dataEnd.Text = chetchik.ToString("D");
+                }
                 tableData.Rows.Add(i + 1, chetchik.ToString("D"), pay.ToString("N2") + " \u20BD", payBank.ToString("N2") + " \u20BD", payMain.ToString("N2") + " \u20BD", summa.ToString("N2") + " \u20BD");
+                if (payBank == 0 && summa == 0) break;
                 chetchik = chetchik.AddMonths(1);
                 debitMain -= payBank;
                 monthlyPayments.Add(pay); // добавляем ежемесячный платеж в список
             }
+            dataEnd.Text = chetchik.ToString("D");
             overSum.Text = pereplata.ToString("N2") + " \u20BD";
         }
 
